@@ -1,5 +1,5 @@
 import React from "react";
-import Navbar from "./Navbar";
+
 import Header from "./Header";
 import Particles from "react-particles-js";
 
@@ -15,7 +15,6 @@ const Home = () => {
   const classes = useStyles();
   return (
     <>
-      <Navbar></Navbar>
       <Header></Header>
       <Particles
         canvasClassName={classes.particlesCanvas}

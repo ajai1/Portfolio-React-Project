@@ -46,7 +46,7 @@ const Header = () => {
             "Full Stack Developer",
             "MERN Stack",
             "JAVASCRIPT | JAVA",
-            "Editor",
+            "Video Editor",
           ]}
           typeSpeed={40}
           backSpeed={60}

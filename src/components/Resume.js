@@ -1,11 +1,11 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Typography, Box } from "@material-ui/core";
-import Navbar from "./Navbar";
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
     //background: "#233",
+    marginTop: "5%",
   },
   timeLine: {
     position: "relative",
@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => ({
   },
   heading: {
     color: "tomato",
-    padding: "3rem 0",
+    padding: "3rem 0.75rem",
     textTransform: "uppercase",
   },
   subHeading: {
@@ -135,8 +135,7 @@ const experiences = [
 const Resume = () => {
   const classes = useStyles();
   return (
-    <>
-      <Navbar />
+    <div>
       <Box component="header" className={classes.mainContainer}>
         <Typography variant="h4" align="center" className={classes.heading}>
           Working Experience
@@ -179,7 +178,7 @@ const Resume = () => {
           })}
         </Box>
       </Box>
-    </>
+    </div>
   );
 };
 

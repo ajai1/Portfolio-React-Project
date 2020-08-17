@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import MobileRightMenuSlider from "@material-ui/core/Drawer";
+import Footer from "./Footer";
 import {
   AppBar,
   Toolbar,
@@ -29,7 +30,7 @@ import avatar from "../images/1.jpg";
 //css styles
 const useStyle = makeStyles((theme) => ({
   menuSliderContainer: {
-    width: 250,
+    width: "auto",
     background: "#511",
     height: "100%",
   },
@@ -92,7 +93,7 @@ const Navbar = () => {
   return (
     <>
       <Box component="nav">
-        <AppBar position="static" style={{ background: "#222" }}>
+        <AppBar position="fixed" style={{ background: "#222" }}>
           <Toolbar>
             <IconButton onClick={toggleSlider("right", true)}>
               <ArrowBack style={{ color: "tomato" }} />
@@ -106,6 +107,7 @@ const Navbar = () => {
               onClose={toggleSlider("right", false)}
             >
               {sideList("right")}
+              <Footer></Footer>
             </MobileRightMenuSlider>
           </Toolbar>
         </AppBar>

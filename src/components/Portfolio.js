@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Backdrop } from "@material-ui/core";
-import dev from "../images/dev.gif";
-import InstaClone from "../images/InstaClone.gif";
-import BurgerBuilder from "../images/BurgerBuilder.gif";
-
+import { db } from "../firebase";
 import {
   Box,
   Grid,
@@ -16,15 +13,20 @@ import {
   Typography,
   CardContent,
 } from "@material-ui/core";
-import Navbar from "./Navbar";
 
 const useStyles = makeStyles((theme) => ({
   mainContainer: {
     height: "100%",
+    marginTop: "4rem",
   },
   cardContainer: {
+    height: "auto",
     maxWidth: 345,
-    margin: "5rem auto",
+    margin: "2rem auto",
+    [theme.breakpoints.up("md")]: {
+      maxWidth: 500,
+      margin: "2rem auto",
+    },
   },
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -32,32 +34,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const projects = [
-  {
-    image: dev,
-    projectName: "Developer Connect",
-    projectDesc:
-      "A Social Media platform for developers, to interact and know each other",
-  },
-  {
-    image: InstaClone,
-    projectName: "Instagram Clone Model",
-    projectDesc:
-      "A clone of Instagram to showcase the images, comment on them and upload images",
-  },
-  {
-    image: BurgerBuilder,
-    projectName: "Burger Builder",
-    projectDesc:
-      "An interactive Burger building app to customize and checkout the order",
-  },
-];
-
 const Portfolio = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [allProjects, setAllProjects] = useState([]);
   const [project, setProject] = useState(null);
   const classes = useStyles();
-
+  useEffect(() => {
+    db.collection("projects").onSnapshot((snap) => {
+      setAllProjects(snap.docs.map((doc) => doc.data()));
+    });
+  }, []);
   const showGif = (project) => {
     setProject(project);
     setOpenModal(!openModal);
@@ -85,9 +71,9 @@ const Portfolio = () => {
           </Box>
         </Backdrop>
       ) : null}
-      <Navbar />
+
       <Grid container justify="center" alignItems="center">
-        {projects.map((project, key) => (
+        {allProjects.map((project, key) => (
           <Grid item xs={12} sm={8} md={6} key={key}>
             <Card className={classes.cardContainer}>
               <CardActionArea>
@@ -114,7 +100,12 @@ const Portfolio = () => {
                   <Button size="small" color="primary">
                     Share
                   </Button>
-                  <Button size="small" color="primary">
+                  <Button
+                    size="small"
+                    color="primary"
+                    href={project.link}
+                    target="_blank"
+                  >
                     Live Demo
                   </Button>
                 </CardActions>
